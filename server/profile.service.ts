@@ -12,6 +12,6 @@ export class ProfileService {
   }
 
   async getBitcloutProfileByLinkedInNick(nick: string) {
-    return this.repository.find({ where: { linkedinUrl: ILike(nick) } });
+    return this.repository.findOne({ where: { linkedinUrl: ILike(nick) } });
   }
 }
