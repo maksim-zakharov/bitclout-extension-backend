@@ -7,10 +7,12 @@ import { S3Service } from './s3.service';
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { CsvModule } from './csv/csv.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(), // load .env file
+    CsvModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.RDS_HOSTNAME || process.env.POSTGRES_HOST || 'localhost',

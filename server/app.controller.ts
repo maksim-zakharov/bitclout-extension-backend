@@ -8,10 +8,16 @@ import {
 } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Readable } from "stream";
 
 @Controller()
 export class AppController {
   constructor(private readonly profileService: ProfileService) {
+  }
+
+  @Get('/')
+  getAllProfiles() {
+    return this.profileService.getAll();
   }
 
   @Get('/:nick')
@@ -19,9 +25,10 @@ export class AppController {
     return this.profileService.getBitcloutProfileByLinkedInNick(nick);
   }
 
-  // @Post('/uploadFile')
-  // @UseInterceptors(FileInterceptor('files'))
-  // uploadCrFiles(@Param() { id }, @UploadedFile() files) {
-  //   return this.profileService.uploadCrFiles(id, files);
-  // }
+  @Post('/')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadCrFiles(@UploadedFile() file) {
+    const stream = Readable.from(file.buffer.toString());
+    return this.profileService.uploadCsv(stream);
+  }
 }

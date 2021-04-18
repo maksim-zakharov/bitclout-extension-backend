@@ -15,9 +15,6 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { from: 'client/assets', to: 'assets' },
-        { from: 'client/js', to: 'js' },
-        { from: 'client/css', to: 'css' },
-        { from: 'client/language', to: 'language' },
       ],
     }),
     new HtmlWebpackPlugin({

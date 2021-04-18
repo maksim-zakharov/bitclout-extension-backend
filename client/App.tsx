@@ -1,36 +1,56 @@
 import * as React from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
-import Welcome from './pages/Welcome';
-import Terms from './pages/Terms'
-import Index from './pages/Register';
-import './assets/fleming.less';
-import { i18nContext } from './contexts/i18n.context';
-import { useContext, useState } from 'react';
+import { Layout, Menu, Breadcrumb } from 'antd';
+import {
+  DesktopOutlined,
+  PieChartOutlined,
+  FileOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
+import { useState } from 'react';
+import './assets/fleming.less'
+import Main from './pages/Main';
+
+const { Header, Content, Footer, Sider } = Layout;
+const { SubMenu } = Menu;
 
 const App = () => {
-  const [lang, setLang] = useState('en');
-  const i18n = useContext(i18nContext);
+  const [collapsed, setCollapsed] = useState(false);
 
-  let translate = (key: string): string => {
-    if (lang === 'en') {
-      return i18n.langEN[key];
-    } else {
-      return i18n.langAr[key];
-    }
+  const onCollapse = (value) => {
+    console.log(value);
+    setCollapsed(value);
   };
 
   return (
-    <i18nContext.Provider
-      value={{ lang, setLang, translate }}
-    >
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Welcome} />
-          <Route exact path="/terms" component={Terms} />
-          <Route exact path="/register" component={Index} />
-        </Switch>
-      </Router>
-    </i18nContext.Provider>
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+        <div className="logo" />
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          <Menu.Item key="1" icon={<PieChartOutlined />}>
+            Option 1
+          </Menu.Item>
+        </Menu>
+      </Sider>
+      <Layout className="site-layout">
+        <Header className="site-layout-background" style={{ padding: 0 }} />
+        <Content style={{ margin: '0 16px' }}>
+          {/*<Breadcrumb style={{ margin: '16px 0' }}>*/}
+          {/*  <Breadcrumb.Item>User</Breadcrumb.Item>*/}
+          {/*  <Breadcrumb.Item>Bill</Breadcrumb.Item>*/}
+          {/*</Breadcrumb>*/}
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Main} />
+            </Switch>
+          </Router>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>
+          Ant Design ©2018 Created by Ant UED
+        </Footer>
+      </Layout>
+    </Layout>
   );
 };
 
