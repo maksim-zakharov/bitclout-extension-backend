@@ -21,60 +21,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.RoomEntity = void 0;
+exports.StaffMemberEntity = void 0;
 var typeorm_1 = require("typeorm");
-var RoomEntity = /** @class */ (function (_super) {
-    __extends(RoomEntity, _super);
-    function RoomEntity() {
+var hotel_entity_1 = require("./hotel.entity");
+var ProfileEntity = /** @class */ (function (_super) {
+    __extends(StaffMemberEntity, _super);
+    function StaffMemberEntity() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
         typeorm_1.PrimaryColumn({
             type: 'uuid'
         })
-    ], RoomEntity.prototype, "id");
+    ], StaffMemberEntity.prototype, "id");
     __decorate([
         typeorm_1.Column({
             unique: true,
             type: 'varchar'
         })
-    ], RoomEntity.prototype, "type");
+    ], StaffMemberEntity.prototype, "name");
     __decorate([
         typeorm_1.Column({
             type: 'varchar'
         })
-    ], RoomEntity.prototype, "typeArabic");
+    ], StaffMemberEntity.prototype, "phoneNumber");
     __decorate([
         typeorm_1.Column({
-            type: 'int'
+            type: 'varchar'
         })
-    ], RoomEntity.prototype, "beds");
+    ], StaffMemberEntity.prototype, "email");
     __decorate([
-        typeorm_1.Column({
-            type: 'int'
-        })
-    ], RoomEntity.prototype, "rooms");
-    __decorate([
-        typeorm_1.Column({
-            type: 'decimal',
-            precision: 5,
-            scale: 2,
-            "default": 0
-        })
-    ], RoomEntity.prototype, "price");
-    __decorate([
-        typeorm_1.Column({
-            type: 'text'
-        })
-    ], RoomEntity.prototype, "description");
-    __decorate([
-        typeorm_1.Column({
-            type: 'text'
-        })
-    ], RoomEntity.prototype, "descriptionArabic");
-    RoomEntity = __decorate([
-        typeorm_1.Entity('rooms')
-    ], RoomEntity);
-    return RoomEntity;
+        typeorm_1.ManyToOne(function () { return hotel_entity_1.HotelEntity; }, function (v) { return v.members; }, { onDelete: 'CASCADE' })
+    ], StaffMemberEntity.prototype, "hotel");
+    StaffMemberEntity = __decorate([
+        typeorm_1.Entity('staff-members')
+    ], StaffMemberEntity);
+    return StaffMemberEntity;
 }(typeorm_1.BaseEntity));
-exports.RoomEntity = RoomEntity;
+exports.StaffMemberEntity = ProfileEntity;

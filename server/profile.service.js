@@ -53,10 +53,10 @@ exports.__esModule = true;
 exports.AppService = void 0;
 var common_1 = require("@nestjs/common");
 var hotel_entity_1 = require("./entities/hotel.entity");
-var staff_member_entity_1 = require("./entities/staff-member.entity");
+var staff_member_entity_1 = require("./entities/profile.entity");
 var typeorm_1 = require("@nestjs/typeorm");
 var typeorm_2 = require("typeorm");
-var AppService = /** @class */ (function () {
+var ProfileService = /** @class */ (function () {
     function AppService(repository, membersRepository) {
         this.repository = repository;
         this.membersRepository = membersRepository;
@@ -108,7 +108,7 @@ var AppService = /** @class */ (function () {
                         }
                         newHotel = hotel_entity_1.HotelEntity.create(dto);
                         newHotel.members = dto.members.map(function (member) {
-                            return staff_member_entity_1.StaffMemberEntity.create(member);
+                            return staff_member_entity_1.ProfileEntity.create(member);
                         });
                         return [2 /*return*/, this.repository.save(newHotel)];
                 }
@@ -118,8 +118,8 @@ var AppService = /** @class */ (function () {
     AppService = __decorate([
         common_1.Injectable(),
         __param(0, typeorm_1.InjectRepository(hotel_entity_1.HotelEntity)),
-        __param(1, typeorm_1.InjectRepository(staff_member_entity_1.StaffMemberEntity))
+        __param(1, typeorm_1.InjectRepository(staff_member_entity_1.ProfileEntity))
     ], AppService);
     return AppService;
 }());
-exports.AppService = AppService;
+exports.AppService = ProfileService;
